@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AccountingLedgerApplication {
@@ -27,18 +28,40 @@ public class AccountingLedgerApplication {
         System.out.println("Please enter debit information");
         String debitInfo = scanner.nextLine();
 
-        // need to write to file
+        class TransactionFileCreator {
+            public static void main(String[] args) {
+                List<Transaction> transactions = new ArrayList<>();
 
-        try {
+                // Add sample transactions
+                transactions.add(new Transaction("2024-05-01", "Rent", 2600.00, "Deposit"));
+                transactions.add(new Transaction("2024-05-12", "Apple Music ", 20.00, "Withdrawal"));
+                transactions.add(new Transaction("2024-05-29", "Chic fil A", 50.00, "Withdrawal"));
+
+
+                try {
             FileWriter writer = new FileWriter("transactions.csv");
-            writer.write("Date, Name, Amount , DebitInfo \n"); 
+            writer.write("Date, Name, Amount , DebitInfo \n");
+                // writer our trasnaction
 
-            
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");//2024-04-25 10:25:08
-            String timestamp = LocalDateTime.now().format(formatter);
+            for (Transaction transaction : transactions) {
+                writer.write(String.format("%s,%s,%.2f,%s\n",
+
+                        transaction.getDate(),
+                        transaction.getName(),
+                        transaction.getAmount(),
+                        transaction.geDebitInfo()));
+                writer.close();
+                System.out.println("Transaction successfully.");
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");//2024-04-25 10:25:08
+                String timestamp = LocalDateTime.now().format(formatter);
 
 
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+
+            }
+        }catch(IOException e){
+        throw new RuntimeException(e);
+
         }
-    }}
+    }
+}
