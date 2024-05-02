@@ -12,7 +12,8 @@ import java.util.Scanner;
 public class AccountingLedgerApplication {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-       List<Transaction> transactions = new ArrayList<>();
+
+        static ArrayList<Transaction> transactions = new ArrayList<>();
         //Date | Time | Description | Vendor | Amount
         transactions.add(new Transaction("2024-05-01", "Rent", 2600.00, "Deposit"));
         transactions.add(new Transaction("2024-05-12", "Apple Music ", -20.00, "Withdrawal"));
@@ -113,8 +114,16 @@ public class AccountingLedgerApplication {
             while((line = bufReader.readLine()) != null) {
                 // create array type string // this is called escape character \\
                 String[] splitLine = line.split("\\|");
+
                 //this will read the date from the file and put it into the array list
-                LocalDate date = LocalDate.parse()
+                // array is called splitline
+                LocalDate date = LocalDate.parse(splitLine[0]);
+                LocalTime time = LocalTime.parse(splitLine[1]);
+                String name = splitLine[2];
+                Double amount = Double.parseDouble(splitLine[3]);
+                String debitInfo = splitLine[4];
+
+                transaction
 
 
             }
